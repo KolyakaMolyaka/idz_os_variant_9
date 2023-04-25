@@ -65,10 +65,10 @@ int main() {
         int res = read_message_no_wait(msqid, communicate_channel, &qbuf);
         if (res != -1) {
             printf("Got message from chat with id = %d.\n", requested_chat);
-            printf("%s sent: %s", qbuf.username, qbuf.msgtext);
+            printf("%s sent: %s\n", qbuf.username, qbuf.msgtext);
             while ( res =  read_message_no_wait(msqid, communicate_channel, &qbuf) != -1 ) {
-                printf("\n");
                 printf("%s sent: %s", qbuf.username, qbuf.msgtext);
+                printf("\n");
             }
         
         }
@@ -80,6 +80,7 @@ int main() {
 
         memset(qbuf.msgtext, 64, 0);
         fgets(qbuf.msgtext, 64, stdin);
+        qbuf.msgtext[strcspn(qbuf.msgtext, "\n")] = 0;
 
         // установка чата, в который будет отправлено сообщение
         qbuf.mtype = requested_chat;

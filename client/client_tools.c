@@ -26,6 +26,7 @@ int request_for_signin_chat(int chat_id, int msqid, char *username) {
 
     memset(username, 32, 0);
     fgets(username, 32, stdin);
+    username[strcspn(username, "\n")] = 0; // удаление \n в конце
 
     strcpy(qbuf.username, username);
     send_message(msqid, &qbuf);     // отправка запроса авторизации
