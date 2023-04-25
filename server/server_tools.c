@@ -67,7 +67,7 @@ void authentificate_user(struct mymsgbuf *request, struct mymsgbuf *response, st
     static int GID_COUNTER = 3 + 3 + 7;
 
     // проверка, что пользователь с таким же именем отстутствует в чате 
-    printf("Validating username...\n");
+    printf("Validating username '%s' in chat with id = %d...\n", request->username, request->chat_id);
     int invalid_username = is_user_in_chat(request->username, chats, request->chat_id);
 
     if ( invalid_username ) {
@@ -75,7 +75,7 @@ void authentificate_user(struct mymsgbuf *request, struct mymsgbuf *response, st
         response->auth = 0; // установка флага неуспешной авторизации
     } else {
         // Добавление пользователя в чат 
-        printf("Register user...\n");
+        printf("Register user '%s' in chat with id = %d...\n", request->username, request->chat_id);
 
         // канал для отправки сообщений, отправленных в чат пользователя
         response->auth = ++GID_COUNTER;
@@ -88,7 +88,7 @@ void authentificate_user(struct mymsgbuf *request, struct mymsgbuf *response, st
         chats[chat_ind].users[cur_user].msq_channel_id = response->auth;
         // обновление счетчика текущих пользователей 
         chats[chat_ind].current_users++;
-        printf("User '%s' connected to the chat %d.\n", response->username, request->chat_id);
+        printf("User '%s' connected to the chat %d.\n", request->username, request->chat_id);
     }
 
     // установка канала доставки "ответа от запроса авторизации"

@@ -48,8 +48,6 @@ int main() {
             
             mail_users(&request, msqid, chats);
 
-            //printf("Got message from user: %s\n", qbuf.username);
-            //printf("Message is: %s\n", qbuf.msgtext);
         }
 
     }
