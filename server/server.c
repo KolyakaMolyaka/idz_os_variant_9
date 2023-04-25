@@ -94,7 +94,7 @@ int main() {
             printf("Chat id: %d\n", qbuf.chat_id);
             printf("Chat id - START_CHAT_CHANNEL: %d\n", qbuf.chat_id - START_CHAT_CHANNEL);
 
-            int chat_ind = START_CHAT_CHANNEL - qbuf.chat_id;
+            int chat_ind = qbuf.chat_id - START_CHAT_CHANNEL; 
             int receiving_users = chats[chat_ind].current_users; 
             printf("Users who should  get message: %d\n", receiving_users);
             for (int i = 0; i < receiving_users; ++i) {

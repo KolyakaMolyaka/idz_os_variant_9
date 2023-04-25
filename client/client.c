@@ -75,6 +75,7 @@ int main() {
         // установка чата, в который будет отправлено сообщение
         qbuf.mtype = requested_chat;
         qbuf.chat_id = requested_chat;
+        qbuf.auth = communicate_channel;
         strcpy(qbuf.username, username);
         // отправка сообщения в чат
         send_message(msqid, &qbuf);
