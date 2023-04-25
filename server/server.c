@@ -5,8 +5,6 @@
 # include "../globals/globals.h"
 # include "server_tools.h"
 
-int GID_COUNTER = 3 + 3 + 7;
-
 
 int main() {
     // создание чатов для контроля сервером

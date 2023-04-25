@@ -62,9 +62,18 @@ int main() {
         
         printf("Your channel is: %d\n", communicate_channel);
         // чтение сообщений из чата
-        while ( read_message_no_wait(msqid, communicate_channel, &qbuf) != -1 ) {
-            printf("Got message from chat with id = %d. Message: %s\n", requested_chat, qbuf.msgtext);
+        int res = read_message_no_wait(msqid, communicate_channel, &qbuf);
+        if (res != -1) {
+            printf("Got message from chat with id = %d.\n", requested_chat);
+            printf("%s sent: %s", qbuf.username, qbuf.msgtext);
+            while ( res =  read_message_no_wait(msqid, communicate_channel, &qbuf) != -1 ) {
+                printf("\n");
+                printf("%s sent: %s", qbuf.username, qbuf.msgtext);
+            }
+        
         }
+
+
         
         // пользователь вводит сообщение для отправки
         printf("Type message to send in chat: ");

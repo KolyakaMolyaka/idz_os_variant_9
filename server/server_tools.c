@@ -1,8 +1,12 @@
+# include "../utils/msglib.h"
+# include "../globals/globals.h"
 # include "server_tools.h"
 # include <malloc.h>
+# include <unistd.h> // sleep
 # include <string.h>
 
 # define START_CHAT_CHANNEL 3
+
 void init_chats(struct chat *chats, int chats_amount) {
     // инициализация доступных чатов 
     for (int i = 0; i < chats_amount; ++i) {
@@ -16,7 +20,7 @@ void init_chats(struct chat *chats, int chats_amount) {
             chats[i].users[j].msq_channel_id = -1;
         }
     }
-}
+};
 
 int is_user_in_chat(char *username, struct chat *chats, int chat_id) {
     // проверка, есть ли другой пользователь с username в чате
@@ -29,6 +33,7 @@ int is_user_in_chat(char *username, struct chat *chats, int chat_id) {
 
     return 0;
 }
+
 int listen(int msqid, struct mymsgbuf *request) {
     int res = -1;       // -1 означает, что новых сообщений нет
     int channel = -1;   // в случае, res != -1, означает каннал из-которого пришло сообщение
@@ -59,6 +64,8 @@ int convert_chat_id_to_chat_index(int chat_id) {
 }
 
 void authentificate_user(struct mymsgbuf *request, struct mymsgbuf *response, struct chat *chats) {
+    static int GID_COUNTER = 3 + 3 + 7;
+
     // проверка, что пользователь с таким же именем отстутствует в чате 
     printf("Validating username...\n");
     int invalid_username = is_user_in_chat(request->username, chats, request->chat_id);

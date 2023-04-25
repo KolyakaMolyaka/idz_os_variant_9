@@ -17,8 +17,9 @@ struct chat {
 
 void init_chats(struct chat *chats, int chats_amount);
 int is_user_in_chat(char *username, struct chat *chats, int chat_id);
-int convert_chat_id_to_chat_index(int chat_id)
-int listen(int msqid, struct mymsgbuf *request)
+int convert_chat_id_to_chat_index(int chat_id);
+int listen(int msqid, struct mymsgbuf *request);
 void mail_users(struct mymsgbuf *request, int msqid, struct chat *chats);
 void authentificate_user(struct mymsgbuf *request, struct mymsgbuf *response, struct chat *chats);
+
 # endif
